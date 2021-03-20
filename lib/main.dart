@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:photo_galery/data/models/thumbnails_model.dart';
+import 'package:photo_galery/presentation/bloc/thumbnails_bloc.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final thumbnailsBloc = ThumbnailsBloc();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -29,23 +33,49 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  final thumbnailsBloc = ThumbnailsBloc();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         title: Text(widget.title),
       ),
-      body: Center(
+      body: StreamBuilder(
+        stream: thumbnailsBloc.getThumbnailsList,
+        builder: (_, AsyncSnapshot<List<ThumbnailsModel>> snapshot) {
 
-        child: Column(
+          final thumbnailsInfo = snapshot.data ?? [];
 
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-          ],
-        ),
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GridView.count(
+                crossAxisCount: 2,
+                primary: false,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                children: listImageBuilder(thumbnailsInfo)
+                ,
+              ),
+            ),
+          );
+        },
       ),
     );
   }
+
+
+  List<Image> listImageBuilder(List<ThumbnailsModel> thumbnailsData) {
+    
+    List<Image> images = [];
+
+    for(ThumbnailsModel thumbnail in thumbnailsData) {
+      final image = Image.network(thumbnail.thumbnailUrl);
+
+      images.add(image);
+    }
+    return images;
+  }
+
 }
