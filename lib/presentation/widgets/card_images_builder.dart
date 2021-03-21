@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:photo_galery/data/models/thumbnails_model.dart';
+import 'package:photo_galery/presentation/pages/image_page.dart';
 
 class CardImagesBuilder extends StatelessWidget {
 
-  final String urlSource;
+  final ThumbnailsModel thumb;
 
   const CardImagesBuilder({
-    this.urlSource,
+    this.thumb,
     Key key,
   }) : super(key: key);
 
@@ -20,12 +22,17 @@ class CardImagesBuilder extends StatelessWidget {
           crossAxisAlignment:
           CrossAxisAlignment.start,
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(15.0),
-              child: Image.network(urlSource),),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/image');
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15.0),
+                child: Image.network(thumb.thumbnailUrl),),
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 4, 0, 0),
-              child: Text('Photo title'),
+              child: Text(thumb.title),
             ),
           ],
         ),
