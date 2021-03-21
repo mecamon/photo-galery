@@ -22,6 +22,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
     List<ThumbnailsModel> photos = [];
     
+    int limit = 80;
 
     if (response.statusCode == 200) {
       List data = json.decode(response.body);
@@ -29,9 +30,11 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       for (var jsonItem in data) {
         final photoInfo = ThumbnailsModel.fromJson(jsonItem);
 
-        photos.add(photoInfo);
+        if (limit > 0) {
+          photos.add(photoInfo);
+          limit--;
+        }
       }
-
     }
 
     return photos;

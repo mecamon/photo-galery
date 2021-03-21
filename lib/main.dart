@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:photo_galery/data/models/thumbnails_model.dart';
 import 'package:photo_galery/presentation/bloc/thumbnails_bloc.dart';
-import 'package:photo_galery/presentation/pages/landing_page.dart';
+import 'package:photo_galery/presentation/pages/landing_page2.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       home: LandingPage(),
     );

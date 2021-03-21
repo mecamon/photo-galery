@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ImageSelected extends StatefulWidget {
-
   ImageSelected({Key key}) : super(key: key);
 
   @override
@@ -12,10 +11,26 @@ class _ImageSelectedState extends State<ImageSelected> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          appBar: AppBar(
-            title: Text('Image selected'),
+      appBar: AppBar(
+        title: Text(
+          'Image Selected title',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
           ),
-          body: Text('Hello from image selected')
-        );
+        ),
+      ),
+      body: Column(
+        children: [
+          Text(
+          'Image Selected title',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+          ),
+        )
+        ],
+      ),
+    );
   }
 }
