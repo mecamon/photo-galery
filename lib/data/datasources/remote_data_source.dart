@@ -5,7 +5,7 @@ import 'dart:convert';
 
 abstract class RemoteDataSource {
   //This method will return a list of ThumbnailModel objects formatted
-  //From the Json response in the site https://jsonplaceholder.typicode.com/photos
+  //from the Json response in the site https://jsonplaceholder.typicode.com/photos
   Future<List<ThumbnailsModel>> getThumbnails();
 }
 
@@ -21,19 +21,17 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         headers: {'Content-Type': 'application/json'});
 
     List<ThumbnailsModel> photos = [];
-    int counter = 0;
+    
 
     if (response.statusCode == 200) {
       List data = json.decode(response.body);
 
-      if (counter < 20) {
-        for (var jsonItem in data) {
-          final photoInfo = ThumbnailsModel.fromJson(jsonItem);
+      for (var jsonItem in data) {
+        final photoInfo = ThumbnailsModel.fromJson(jsonItem);
 
-          photos.add(photoInfo);
-          counter++;
-        }
+        photos.add(photoInfo);
       }
+
     }
 
     return photos;

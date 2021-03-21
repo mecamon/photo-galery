@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:photo_galery/data/models/thumbnails_model.dart';
 import 'package:photo_galery/presentation/bloc/thumbnails_bloc.dart';
+import 'package:photo_galery/presentation/pages/landing_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -37,45 +38,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: StreamBuilder(
-        stream: thumbnailsBloc.getThumbnailsList,
-        builder: (_, AsyncSnapshot<List<ThumbnailsModel>> snapshot) {
-
-          final thumbnailsInfo = snapshot.data ?? [];
-
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GridView.count(
-                crossAxisCount: 2,
-                primary: false,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                children: listImageBuilder(thumbnailsInfo)
-                ,
-              ),
-            ),
-          );
-        },
-      ),
+    return MaterialApp(
+      theme: ThemeData.dark(),
+      home: LandingPage(),
     );
   }
-
-
-  List<Image> listImageBuilder(List<ThumbnailsModel> thumbnailsData) {
-    
-    List<Image> images = [];
-
-    for(ThumbnailsModel thumbnail in thumbnailsData) {
-      final image = Image.network(thumbnail.thumbnailUrl);
-
-      images.add(image);
-    }
-    return images;
-  }
-
 }
